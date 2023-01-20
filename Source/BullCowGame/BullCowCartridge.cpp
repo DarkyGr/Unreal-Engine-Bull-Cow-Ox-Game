@@ -11,7 +11,7 @@ void UBullCowCartridge::BeginPlay() // When the game starts
     PrintLine(TEXT("Press enter to continue..."));
     
     //Setting Uo Game
-    InitGame();    
+    SetupGAme();    
 
     //Prompt player for guess
 }
@@ -44,7 +44,7 @@ void UBullCowCartridge::OnInput(const FString& Input) // When the player hits en
     //Play Again or Quit
 }
 
-void UBullCowCartridge::InitGame()
+void UBullCowCartridge::SetupGAme()
 {
     HiddenWord = TEXT("cake");
     Lives = 4;
