@@ -13,36 +13,14 @@ void UBullCowCartridge::BeginPlay(){    // When the game starts
 
 void UBullCowCartridge::OnInput(const FString& Input){     // When the player hits enter
     
-    /* If game is not over do ClearScreen() and SetupGame() the game
-    Else Checking player guess */
+    
     if (bGameOver){
         ClearScreen();
         SetupGame();
 
     }else{  //Checking playerguess
-        if (Input == HiddenWord){
-            PrintLine(TEXT("You Won! :D"));
-            EndGame();
-        }
-        else{            
-            PrintLine(TEXT("Lost a live!"));
-            PrintLine(TEXT("%i"), --Lives);
-            
-            if (Lives > 0)
-            {
-                if (Input.Len() != HiddenWord.Len()){
-                    PrintLine(TEXT("Sorry try again!. \nYou have -> %i lives remaining"), Lives);
-                }
-            }else
-            {
-                PrintLine(TEXT("------------------------------------\nYou have no lives left!"));
-                EndGame();
-            }
-        }
+        ProcessGuess(Input);
     }
-    
-    
-    
     
     //Check if isogram
     //Prompt to guess again
@@ -77,4 +55,26 @@ void UBullCowCartridge::SetupGame(){
 void UBullCowCartridge::EndGame(){
     bGameOver = true;
     PrintLine(TEXT( "\nPress enter to play again"));
+}
+
+void UBullCowCartridge::ProcessGuess(FString Guess){
+    if (Guess == HiddenWord){
+        PrintLine(TEXT("------------------------------------\nYou Won! :D"));
+        EndGame();
+    }
+    else{            
+        PrintLine(TEXT("Lost a live!"));
+        PrintLine(TEXT("%i"), --Lives);
+        
+        if (Lives > 0)
+        {
+            if (Guess.Len() != HiddenWord.Len()){
+                PrintLine(TEXT("Sorry try again!. \nYou have -> %i lives remaining"), Lives);
+            }
+        }else
+        {
+            PrintLine(TEXT("------------------------------------\nYou have no lives left!"));
+            EndGame();
+        }
+    }
 }
