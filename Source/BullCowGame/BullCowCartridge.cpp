@@ -18,7 +18,7 @@ void UBullCowCartridge::BeginPlay() // When the game starts
 
 void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
 {    
-    ClearScreen();
+    ClearScreen();   
 
     //Checking player guess
     if (Input == HiddenWord)
@@ -26,8 +26,13 @@ void UBullCowCartridge::OnInput(const FString& Input) // When the player hits en
         PrintLine(TEXT("It's Correct :D"));
     }
     else{
+        if (Input.Len() != HiddenWord.Len())
+        {
+            PrintLine(TEXT("The Hidden Word is 4 characters long, try again!"));
+        }
         PrintLine(TEXT("Failed :c"));
-    }    
+    }
+    
     //Check if isogram
     //Prompt to guess again
     //Check rihgt number char
