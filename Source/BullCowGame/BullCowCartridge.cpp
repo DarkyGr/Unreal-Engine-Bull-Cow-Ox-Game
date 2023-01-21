@@ -6,17 +6,13 @@
 void UBullCowCartridge::BeginPlay(){    // When the game starts
     Super::BeginPlay();
 
+    //Valid Word List
+    NewWordList = GetValidWords(Words);
+
     //Setting Uo Game
     SetupGame();
 
-    for (int32 i = 0; i < 10; i++)
-    {
-        if (Words[i].Len() >=4 && Words[i].Len() <=8)
-        {
-            PrintLine(TEXT("%s"), *Words[i]);
-        }
-    }
-        
+    // PrintLine(TEXT("The new Word list is: %i"), GetValidWords(Words).Num());
 }
 
 //Fuction for start game
@@ -39,7 +35,7 @@ void UBullCowCartridge::SetupGame(){
 
     //Set the hidden word
     // HiddenWord = TEXT("cakes");
-    HiddenWord = Words[rand() % Words.Num()];
+    HiddenWord = NewWordList[rand() % NewWordList.Num()];
     Lives = HiddenWord.Len();
     bGameOver = false;
 
@@ -119,4 +115,21 @@ void UBullCowCartridge::LostLife(int32 Lives)
 {
     PrintLine(TEXT("\nLost a live!"));
     PrintLine(TEXT("Sorry try again!. \nYou have -> %i lives remaining."), Lives);
+}
+
+
+//Function valid words
+TArray<FString> UBullCowCartridge::GetValidWords(TArray<FString> WordList) const
+{
+    TArray<FString> ValidWords;
+
+    for (int32 i = 0; i < WordList.Num(); i++)
+    {
+        if (WordList[i].Len() >=4 && WordList[i].Len() <=8 && IsIsogram(WordList[i]))
+        {
+            ValidWords.Emplace(WordList[i]);         
+        }
+    }
+
+    return ValidWords;
 }
