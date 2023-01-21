@@ -8,7 +8,12 @@ void UBullCowCartridge::BeginPlay(){    // When the game starts
 
     //Setting Uo Game
     SetupGame();
-    
+
+    for (int32 i = 0; i < 5; i++)
+    {
+        PrintLine(TEXT("%s"), *Words[i]);
+    }
+        
 }
 
 //Fuction for start game
@@ -31,7 +36,7 @@ void UBullCowCartridge::SetupGame(){
 
     //Set the hidden word
     // HiddenWord = TEXT("cakes");
-    HiddenWord = Words[rand() % 998];
+    HiddenWord = Words[rand() % Words.Num()];
     Lives = HiddenWord.Len();
     bGameOver = false;
 
