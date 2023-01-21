@@ -52,28 +52,31 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
     if (Guess == HiddenWord){
         PrintLine(TEXT("------------------------------------\nYou Won! :D"));
         EndGame();
-
     }else{
 
         //Check is isogram
-        if (!IsIsogram(Guess))
-        {
-            PrintLine(TEXT("No repaeating letters, guess again."));
-        }
+        // if (!IsIsogram(Guess))
+        // {
+        //     PrintLine(TEXT("No repaeating letters, guess again."));
+        // }
 
-        PrintLine(TEXT("Lost a live!"));
-        --Lives;
+        --Lives;       
         
         if (Lives > 0)
         {
             if (Guess.Len() != HiddenWord.Len()){
-                PrintLine(TEXT("Sorry try again!. \nYou have -> %i lives remaining"), Lives);
+                LostLife(Lives);
+            }else{
+                if (Guess != HiddenWord)
+                {
+                    LostLife(Lives);
+                }
             }
         }else
         {
-            PrintLine(TEXT("------------------------------------\nYou have no lives left!"));
+            PrintLine(TEXT("------------------------------------\nYou have no lives left! X.X"));
             PrintLine(TEXT("The hidden word was: %s"), *HiddenWord);
-            EndGame();
+            EndGame();            
         }
     }
 }
@@ -81,4 +84,10 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
 bool UBullCowCartridge::IsIsogram(FString Isogram) const
 {
     return true;    
+}
+
+void UBullCowCartridge::LostLife(int32 Lives)
+{
+    PrintLine(TEXT("Lost a live!"));
+    PrintLine(TEXT("Sorry try again!. \nYou have -> %i lives remaining"), Lives);
 }
