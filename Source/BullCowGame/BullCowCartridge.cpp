@@ -21,21 +21,7 @@ void UBullCowCartridge::OnInput(const FString& Input){     // When the player hi
     }else{  //Checking playerguess
         ProcessGuess(Input);
     }
-    
-    //Check if isogram
-    //Prompt to guess again
-    //Check rihgt number char
-    //Prompt to guess again
-    
-    //Remove life
 
-    //Check if lives > 0
-    //If yes Play Again
-    //Show lives left
-    //If no show Game Over and HiddenWord
-    //Prompt to Play Again, Press Enter to Play Again
-    //Check user input
-    //Play Again or Quit
 }
 
 void UBullCowCartridge::SetupGame(){
@@ -49,7 +35,12 @@ void UBullCowCartridge::SetupGame(){
 
     PrintLine(TEXT("Guess the %i letter word!"), HiddenWord.Len());
     PrintLine(TEXT("You have: %i lives"), Lives);
-    PrintLine(TEXT("Type in your guess. \nPress enter to continue...")); 
+    PrintLine(TEXT("Type in your guess. \nPress enter to continue..."));    //Prompt Player for guess
+
+    const TCHAR HW[] = TEXT("cakes");
+    \
+    PrintLine(TEXT("Cahracter 1 of the hidden word is: %c"), HiddenWord[0]);    //Print 1th char of the hiddenword
+    PrintLine(TEXT("The 4th character of hidden word is: %c"), HiddenWord[3]);  //Print 4th char of the hiddenword
 }
 
 void UBullCowCartridge::EndGame(){
@@ -61,8 +52,15 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
     if (Guess == HiddenWord){
         PrintLine(TEXT("------------------------------------\nYou Won! :D"));
         EndGame();
-    }
-    else{            
+
+    }else{
+
+        //Check is isogram
+        if (!IsIsogram(Guess))
+        {
+            PrintLine(TEXT("No repaeating letters, guess again."));
+        }
+
         PrintLine(TEXT("Lost a live!"));
         PrintLine(TEXT("%i"), --Lives);
         
@@ -74,7 +72,13 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
         }else
         {
             PrintLine(TEXT("------------------------------------\nYou have no lives left!"));
+            PrintLine(TEXT("The hidden word was: %s"), *HiddenWord);
             EndGame();
         }
     }
+}
+
+bool UBullCowCartridge::IsIsogram(FString Isogram)
+{
+    return true;    
 }
