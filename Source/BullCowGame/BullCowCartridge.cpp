@@ -1,19 +1,19 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "BullCowCartridge.h"
+#include "HiddenWordList.h"
 
+//Function to start game
 void UBullCowCartridge::BeginPlay(){    // When the game starts
     Super::BeginPlay();
 
     //Setting Uo Game
     SetupGame();
-
-    // PrintLine(TEXT("The Hidden Word is: %s."), *HiddenWord);    //Debug Line
     
 }
 
+//Fuction for start game
 void UBullCowCartridge::OnInput(const FString& Input){     // When the player hits enter
-    
-    
+
     if (bGameOver){
         ClearScreen();
         SetupGame();
@@ -24,18 +24,22 @@ void UBullCowCartridge::OnInput(const FString& Input){     // When the player hi
 
 }
 
+//Function for Initialize variables and hiddenword messages 
 void UBullCowCartridge::SetupGame(){
     //Welcome the player
-    PrintLine(TEXT("Welcome to Bull Cows Game!"));    
+    PrintLine(TEXT("Welcome to Bull Cows Game!\n"));    
 
     //Set the hidden word
-    HiddenWord = TEXT("cakes");
+    // HiddenWord = TEXT("cakes");
+    HiddenWord = Words[rand() % 5];
     Lives = HiddenWord.Len();
     bGameOver = false;
 
+    PrintLine(TEXT("The Hidden Word is: %s."), *HiddenWord);    //Debug Line
+
     PrintLine(TEXT("Guess the %i letter word!"), HiddenWord.Len());
     PrintLine(TEXT("You have: %i lives."), Lives);
-    PrintLine(TEXT("Type in your guess. \nPress enter to continue..."));    //Prompt Player for guess
+    PrintLine(TEXT("Type in your guess. \nAnd press enter to continue..."));    //Prompt Player for guess
 
     // const TCHAR HW[] = TEXT("cakes");    
     // PrintLine(TEXT("The 1th character of the hidden word is: %c"), HiddenWord[0]);    //Print 1th char of the hiddenword
@@ -44,11 +48,13 @@ void UBullCowCartridge::SetupGame(){
     // IsIsogram(HiddenWord);
 }
 
+//Function for Eng Game
 void UBullCowCartridge::EndGame(){
     bGameOver = true;
-    PrintLine(TEXT( "\nPress enter to play again"));
+    PrintLine(TEXT( "\nPress enter to play again."));
 }
 
+//Function for the process fo Game
 void UBullCowCartridge::ProcessGuess(FString Guess){
     if (Guess == HiddenWord){
         PrintLine(TEXT("------------------------------------\nYou Won! :D"));
@@ -63,6 +69,7 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
 
         --Lives;       
         
+        //Chec if the lifes == 0
         if (Lives > 0)
         {
             if (Guess.Len() != HiddenWord.Len()){
@@ -82,6 +89,7 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
     }
 }
 
+//Function for check the isogram
 bool UBullCowCartridge::IsIsogram(FString Isogram) const
 {
     for (int32 Index =0; Index < Isogram.Len(); Index++)
@@ -98,6 +106,7 @@ bool UBullCowCartridge::IsIsogram(FString Isogram) const
     return true;
 }
 
+//Function for Lost Life
 void UBullCowCartridge::LostLife(int32 Lives)
 {
     PrintLine(TEXT("\nLost a live!"));
