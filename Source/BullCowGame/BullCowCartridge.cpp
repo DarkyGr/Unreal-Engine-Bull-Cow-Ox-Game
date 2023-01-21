@@ -7,7 +7,7 @@ void UBullCowCartridge::BeginPlay(){    // When the game starts
     //Setting Uo Game
     SetupGame();
 
-    PrintLine(TEXT("The Hiiden Word is: %s."), *HiddenWord);    //Debug Line
+    PrintLine(TEXT("The Hidden Word is: %s."), *HiddenWord);    //Debug Line
     
 }
 
@@ -39,8 +39,8 @@ void UBullCowCartridge::SetupGame(){
 
     const TCHAR HW[] = TEXT("cakes");
     \
-    PrintLine(TEXT("Cahracter 1 of the hidden word is: %c"), HiddenWord[0]);    //Print 1th char of the hiddenword
-    PrintLine(TEXT("The 4th character of hidden word is: %c"), HiddenWord[3]);  //Print 4th char of the hiddenword
+    PrintLine(TEXT("The 1th character of the hidden word is: %c"), HiddenWord[0]);    //Print 1th char of the hiddenword
+    PrintLine(TEXT("The 4th character of the hidden word is: %c"), HiddenWord[3]);  //Print 4th char of the hiddenword
 }
 
 void UBullCowCartridge::EndGame(){
@@ -62,7 +62,7 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
         }
 
         PrintLine(TEXT("Lost a live!"));
-        PrintLine(TEXT("%i"), --Lives);
+        --Lives;
         
         if (Lives > 0)
         {
@@ -78,7 +78,7 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
     }
 }
 
-bool UBullCowCartridge::IsIsogram(FString Isogram)
+bool UBullCowCartridge::IsIsogram(FString Isogram) const
 {
     return true;    
 }
