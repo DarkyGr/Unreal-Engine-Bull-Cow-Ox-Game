@@ -9,9 +9,12 @@ void UBullCowCartridge::BeginPlay(){    // When the game starts
     //Setting Uo Game
     SetupGame();
 
-    for (int32 i = 0; i < 5; i++)
+    for (int32 i = 0; i < 10; i++)
     {
-        PrintLine(TEXT("%s"), *Words[i]);
+        if (Words[i].Len() >=4 && Words[i].Len() <=8)
+        {
+            PrintLine(TEXT("%s"), *Words[i]);
+        }
     }
         
 }
