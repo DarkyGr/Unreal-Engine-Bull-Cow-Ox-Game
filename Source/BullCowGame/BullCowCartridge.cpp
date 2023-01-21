@@ -31,7 +31,7 @@ void UBullCowCartridge::SetupGame(){
 
     //Set the hidden word
     // HiddenWord = TEXT("cakes");
-    HiddenWord = Words[rand() % 5];
+    HiddenWord = Words[rand() % 998];
     Lives = HiddenWord.Len();
     bGameOver = false;
 
