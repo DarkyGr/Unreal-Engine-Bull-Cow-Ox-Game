@@ -58,7 +58,7 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
         // Check is isogram
         if (!IsIsogram(Guess))
         {
-            PrintLine(TEXT("No repaeating letters, guess again."));
+            PrintLine(TEXT("\n--> No repaeating letters, guess again."));
         }
 
         --Lives;       
@@ -84,14 +84,14 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
 
 bool UBullCowCartridge::IsIsogram(FString Isogram) const
 {
-    // int32 Index = 0;
-    // int32 Comparison = Index + 1;
-
-    for (int32 Index = 0, Comparison = Index + 1; Comparison < Isogram.Len(); Comparison++)
+    for (int32 Index =0; Index < Isogram.Len(); Index++)
     {
-        if (Isogram[Index] == Isogram[Comparison])
+        for (int32 Comparison = Index + 1; Comparison < Isogram.Len(); Comparison++)
         {
-            return false;
+            if (Isogram[Index] == Isogram[Comparison])
+            {
+                return false;
+            }            
         }        
     }
     
@@ -100,6 +100,6 @@ bool UBullCowCartridge::IsIsogram(FString Isogram) const
 
 void UBullCowCartridge::LostLife(int32 Lives)
 {
-    PrintLine(TEXT("Lost a live!"));
+    PrintLine(TEXT("\nLost a live!"));
     PrintLine(TEXT("Sorry try again!. \nYou have -> %i lives remaining."), Lives);
 }
