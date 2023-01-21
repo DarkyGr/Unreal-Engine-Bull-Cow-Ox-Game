@@ -7,7 +7,7 @@ void UBullCowCartridge::BeginPlay(){    // When the game starts
     //Setting Uo Game
     SetupGame();
 
-    PrintLine(TEXT("The Hidden Word is: %s."), *HiddenWord);    //Debug Line
+    // PrintLine(TEXT("The Hidden Word is: %s."), *HiddenWord);    //Debug Line
     
 }
 
@@ -37,10 +37,11 @@ void UBullCowCartridge::SetupGame(){
     PrintLine(TEXT("You have: %i lives"), Lives);
     PrintLine(TEXT("Type in your guess. \nPress enter to continue..."));    //Prompt Player for guess
 
-    const TCHAR HW[] = TEXT("cakes");
-    \
-    PrintLine(TEXT("The 1th character of the hidden word is: %c"), HiddenWord[0]);    //Print 1th char of the hiddenword
-    PrintLine(TEXT("The 4th character of the hidden word is: %c"), HiddenWord[3]);  //Print 4th char of the hiddenword
+    // const TCHAR HW[] = TEXT("cakes");    
+    // PrintLine(TEXT("The 1th character of the hidden word is: %c"), HiddenWord[0]);    //Print 1th char of the hiddenword
+    // PrintLine(TEXT("The 4th character of the hidden word is: %c"), HiddenWord[3]);  //Print 4th char of the hiddenword  
+
+    IsIsogram(HiddenWord);
 }
 
 void UBullCowCartridge::EndGame(){
@@ -54,11 +55,11 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
         EndGame();
     }else{
 
-        //Check is isogram
-        // if (!IsIsogram(Guess))
-        // {
-        //     PrintLine(TEXT("No repaeating letters, guess again."));
-        // }
+        // Check is isogram
+        if (!IsIsogram(Guess))
+        {
+            // PrintLine(TEXT("No repaeating letters, guess again."));
+        }
 
         --Lives;       
         
@@ -83,6 +84,11 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
 
 bool UBullCowCartridge::IsIsogram(FString Isogram) const
 {
+    for (int32 Index = 0; Index < Isogram.Len(); Index++)
+    {
+        PrintLine(TEXT("%c"), Isogram[Index]);
+    }
+    
     return true;    
 }
 
