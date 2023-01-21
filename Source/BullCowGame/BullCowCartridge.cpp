@@ -34,14 +34,14 @@ void UBullCowCartridge::SetupGame(){
     bGameOver = false;
 
     PrintLine(TEXT("Guess the %i letter word!"), HiddenWord.Len());
-    PrintLine(TEXT("You have: %i lives"), Lives);
+    PrintLine(TEXT("You have: %i lives."), Lives);
     PrintLine(TEXT("Type in your guess. \nPress enter to continue..."));    //Prompt Player for guess
 
     // const TCHAR HW[] = TEXT("cakes");    
     // PrintLine(TEXT("The 1th character of the hidden word is: %c"), HiddenWord[0]);    //Print 1th char of the hiddenword
     // PrintLine(TEXT("The 4th character of the hidden word is: %c"), HiddenWord[3]);  //Print 4th char of the hiddenword  
 
-    IsIsogram(HiddenWord);
+    // IsIsogram(HiddenWord);
 }
 
 void UBullCowCartridge::EndGame(){
@@ -58,7 +58,7 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
         // Check is isogram
         if (!IsIsogram(Guess))
         {
-            // PrintLine(TEXT("No repaeating letters, guess again."));
+            PrintLine(TEXT("No repaeating letters, guess again."));
         }
 
         --Lives;       
@@ -76,7 +76,7 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
         }else
         {
             PrintLine(TEXT("------------------------------------\nYou have no lives left! X.X"));
-            PrintLine(TEXT("The hidden word was: %s"), *HiddenWord);
+            PrintLine(TEXT("The hidden word was: %s."), *HiddenWord);
             EndGame();            
         }
     }
@@ -84,16 +84,22 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
 
 bool UBullCowCartridge::IsIsogram(FString Isogram) const
 {
-    for (int32 Index = 0; Index < Isogram.Len(); Index++)
+    // int32 Index = 0;
+    // int32 Comparison = Index + 1;
+
+    for (int32 Index = 0, Comparison = Index + 1; Comparison < Isogram.Len(); Comparison++)
     {
-        PrintLine(TEXT("%c"), Isogram[Index]);
+        if (Isogram[Index] == Isogram[Comparison])
+        {
+            return false;
+        }        
     }
     
-    return true;    
+    return true;
 }
 
 void UBullCowCartridge::LostLife(int32 Lives)
 {
     PrintLine(TEXT("Lost a live!"));
-    PrintLine(TEXT("Sorry try again!. \nYou have -> %i lives remaining"), Lives);
+    PrintLine(TEXT("Sorry try again!. \nYou have -> %i lives remaining."), Lives);
 }
