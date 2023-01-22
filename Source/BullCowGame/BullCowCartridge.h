@@ -20,7 +20,7 @@ class BULLCOWGAME_API UBullCowCartridge : public UCartridge
 	bool IsIsogram(const FString& Word) const;
 	void LostLife(int32 Lives);
 	TArray<FString> GetValidWords(const TArray<FString>& WordList) const;
-	void GetBullsCows(const FString& Guess, int32& BullCount, int32& CowCount) const;	
+	void GetBullsCows(const FString& Guess, int32& BullCount, int32& CowCount, int32& OxCount) const;	
 
 	// Your declarations go below!
 	private:

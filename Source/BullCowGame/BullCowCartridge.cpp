@@ -110,10 +110,10 @@ void UBullCowCartridge::ProcessGuess(const FString &Guess)
             {
                 LostLife(Lives);
 
-                int32 Bulls, Cows;
-                GetBullsCows(Guess, Bulls, Cows);
+                int32 Bulls, Cows, Oxs;
+                GetBullsCows(Guess, Bulls, Cows, Oxs);
 
-                PrintLine(TEXT("You have: %i Bulls & %i Cows"), Bulls, Cows);
+                PrintLine(TEXT("You have: %i Bulls - %i Cows - %i Oxs"), Bulls, Cows, Oxs);
             }                        
             else if (Guess.Len() > HiddenWord.Len())    //If the lenght is greater than
             {
@@ -127,10 +127,10 @@ void UBullCowCartridge::ProcessGuess(const FString &Guess)
                 {
                     LostLife(Lives);
 
-                    int32 Bulls, Cows;
-                    GetBullsCows(Guess, Bulls, Cows);
+                    int32 Bulls, Cows, Oxs;
+                    GetBullsCows(Guess, Bulls, Cows, Oxs);
 
-                    PrintLine(TEXT("You have: %i Bulls & %i Cows"), Bulls, Cows);
+                    PrintLine(TEXT("You have: %i Bulls - %i Cows - %i Oxs"), Bulls, Cows, Oxs);
                 }
             }
         }
@@ -184,10 +184,11 @@ TArray<FString> UBullCowCartridge::GetValidWords(const TArray<FString> &WordList
 }
 
 // Fucntion valid the bulls and cows of the GuessPlayer
-void UBullCowCartridge::GetBullsCows(const FString& Guess, int32& BullCount, int32& CowCount) const
+void UBullCowCartridge::GetBullsCows(const FString& Guess, int32& BullCount, int32& CowCount, int32& OxCount) const
 {
     BullCount = 0;
     CowCount = 0;
+    OxCount = 0;
 
     // for every index Guess is same as index HiddenWord, Bullcount ++
     // if not a bull was it a cow? if yes CowCount ++
@@ -207,4 +208,6 @@ void UBullCowCartridge::GetBullsCows(const FString& Guess, int32& BullCount, int
             }
         }        
     }
+
+    OxCount = Guess.Len() - (BullCount + CowCount);
 }
