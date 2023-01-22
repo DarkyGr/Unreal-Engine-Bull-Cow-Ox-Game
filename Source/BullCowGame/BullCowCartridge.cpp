@@ -1,18 +1,23 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "BullCowCartridge.h"
-#include "HiddenWordList.h"
+// #include "HiddenWordList.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
 
 //Function to start game
 void UBullCowCartridge::BeginPlay(){    // When the game starts
-    Super::BeginPlay();
+    Super::BeginPlay();    
 
+    const FString WordListPath = FPaths::ProjectContentDir() / TEXT("WordLists/HiddenWordList.txt");    
+    FFileHelper::LoadFileToStringArray(Words, *WordListPath);
+    
     //Valid Word List
     NewWordList = GetValidWords(Words);
 
-    //Setting Uo Game
+    //Setting Up Game
     SetupGame();
 
-    PrintLine(TEXT("The new Word list is: %i"), GetValidWords(Words).Num());
+    // PrintLine(TEXT("The new Word list is: %i"), NewWordList.Num());
 }
 
 //Fuction for start game
@@ -44,12 +49,6 @@ void UBullCowCartridge::SetupGame(){
     PrintLine(TEXT("Guess the %i letter word!"), HiddenWord.Len());
     PrintLine(TEXT("You have: %i lives."), Lives);
     PrintLine(TEXT("Type in your guess. \nAnd press enter to continue..."));    //Prompt Player for guess
-
-    // const TCHAR HW[] = TEXT("cakes");    
-    // PrintLine(TEXT("The 1th character of the hidden word is: %c"), HiddenWord[0]);    //Print 1th char of the hiddenword
-    // PrintLine(TEXT("The 4th character of the hidden word is: %c"), HiddenWord[3]);  //Print 4th char of the hiddenword  
-
-    // IsIsogram(HiddenWord);
 }
 
 //Function for Eng Game
