@@ -6,6 +6,14 @@
 #include "Console/Cartridge.h"
 #include "BullCowCartridge.generated.h"
 
+//Add new Struct
+struct FBullCowCount
+{
+    int32 Bulls = 0;
+    int32 Cows = 0;
+	int32 Oxs = 0;
+};
+
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class BULLCOWGAME_API UBullCowCartridge : public UCartridge
 {
@@ -20,7 +28,7 @@ class BULLCOWGAME_API UBullCowCartridge : public UCartridge
 	bool IsIsogram(const FString& Word) const;
 	void LostLife(int32 Lives);
 	TArray<FString> GetValidWords(const TArray<FString>& WordList) const;
-	void GetBullsCows(const FString& Guess, int32& BullCount, int32& CowCount, int32& OxCount) const;	
+	FBullCowCount GetBullsCowsOxs(const FString& Guess) const;	
 
 	// Your declarations go below!
 	private:
