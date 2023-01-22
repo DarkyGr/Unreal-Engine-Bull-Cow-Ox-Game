@@ -8,16 +8,26 @@
 void UBullCowCartridge::BeginPlay(){    // When the game starts
     Super::BeginPlay();    
 
-    const FString WordListPath = FPaths::ProjectContentDir() / TEXT("WordLists/HiddenWordList.txt");    
+    /* 
+        FPaths::ProjectContentDir() will return the absolute path to the Content directory
+        The / operator has been overloaded to concatenate the two strings together ensuring a / inbetween them. So in this example that line of code would result in an FString with the value 
+    */
+    /*
+        In order for this to work in a packaged game you would need to add the WordLists directory to the list of Additional Non-Asset Directories to package in your Project Settings under Packaging. 
+        Alternatively you can just use the search.
+    */
+    const FString WordListPath = FPaths::ProjectContentDir() / TEXT("WordLists/HiddenWordList.txt");
+    /*
+        FFileHelper::LoadFileToStringArray loads a text file into a TArray of FStrings. 
+        The first argument is the TArray to populate and the second is the path to the file.
+    */
     FFileHelper::LoadFileToStringArray(Words, *WordListPath);
-    
+
     //Valid Word List
     NewWordList = GetValidWords(Words);
 
     //Setting Up Game
-    SetupGame();
-
-    // PrintLine(TEXT("The new Word list is: %i"), NewWordList.Num());
+    SetupGame();    
 }
 
 //Fuction for start game
@@ -38,17 +48,18 @@ void UBullCowCartridge::SetupGame(){
     //Welcome the player
     PrintLine(TEXT("Welcome to Bull Cows Game!\n"));    
 
-    //Set the hidden word
-    // HiddenWord = TEXT("cakes");
-    HiddenWord = NewWordList[rand() % NewWordList.Num()];
+    //Set the hidden word    
+    // HiddenWord = NewWordList[rand() % NewWordList.Num()];
+    HiddenWord = NewWordList[FMath::RandRange(0, NewWordList.Num() - 1)];
     Lives = HiddenWord.Len();
     bGameOver = false;
-
-    PrintLine(TEXT("The Hidden Word is: %s."), *HiddenWord);    //Debug Line
 
     PrintLine(TEXT("Guess the %i letter word!"), HiddenWord.Len());
     PrintLine(TEXT("You have: %i lives."), Lives);
     PrintLine(TEXT("Type in your guess. \nAnd press enter to continue..."));    //Prompt Player for guess
+
+    PrintLine(TEXT("The Hidden Word is: %s."), *HiddenWord);    //Debug Line
+
 }
 
 //Function for Eng Game
