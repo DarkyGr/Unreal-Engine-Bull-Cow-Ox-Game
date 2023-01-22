@@ -58,7 +58,7 @@ void UBullCowCartridge::EndGame(){
 }
 
 //Function for the process fo Game
-void UBullCowCartridge::ProcessGuess(FString Guess){
+void UBullCowCartridge::ProcessGuess(const FString& Guess){
     if (Guess == HiddenWord){
         PrintLine(TEXT("------------------------------------\nYou Won! :D"));
         EndGame();
@@ -93,7 +93,7 @@ void UBullCowCartridge::ProcessGuess(FString Guess){
 }
 
 //Function for check the isogram
-bool UBullCowCartridge::IsIsogram(FString Isogram) const
+bool UBullCowCartridge::IsIsogram(const FString& Isogram) const
 {
     for (int32 Index =0; Index < Isogram.Len(); Index++)
     {
@@ -118,7 +118,7 @@ void UBullCowCartridge::LostLife(int32 Lives)
 
 
 //Function valid words
-TArray<FString> UBullCowCartridge::GetValidWords(TArray<FString> WordList) const
+TArray<FString> UBullCowCartridge::GetValidWords(const TArray<FString>& WordList) const
 {
     TArray<FString> ValidWords;
 
