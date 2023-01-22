@@ -8,7 +8,7 @@ The game is based on:
 - Guess the isogram.
 - The letter in guess and correct place is a "Bull".
 - Letter to guess, but in the wrong place is a "Cow".
-- Letter that doesn't belong to the word is a "Ox".
+- (NEW) Letter that doesn't belong to the word is a "Ox".
 
 Mechanics of the game:
 - Hidden word pulled from a list.
