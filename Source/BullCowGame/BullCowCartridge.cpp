@@ -24,7 +24,7 @@ void UBullCowCartridge::BeginPlay(){    // When the game starts
     FFileHelper::LoadFileToStringArray(Words, *WordListPath);
 
     //Valid Word List
-    NewWordList = GetValidWords(Words);
+    Isograms = GetValidWords(Words);
 
     //Setting Up Game
     SetupGame();    
@@ -49,8 +49,8 @@ void UBullCowCartridge::SetupGame(){
     PrintLine(TEXT("Welcome to Bull Cows Game!\n"));    
 
     //Set the hidden word    
-    // HiddenWord = NewWordList[rand() % NewWordList.Num()];
-    HiddenWord = NewWordList[FMath::RandRange(0, NewWordList.Num() - 1)];
+    // HiddenWord = Isograms[rand() % Isograms.Num()];
+    HiddenWord = Isograms[FMath::RandRange(0, Isograms.Num() - 1)];
     Lives = HiddenWord.Len();
     bGameOver = false;
 
