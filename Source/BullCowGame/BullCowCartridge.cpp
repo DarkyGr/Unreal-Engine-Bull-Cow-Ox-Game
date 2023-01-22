@@ -68,14 +68,13 @@ void UBullCowCartridge::SetupGame()
     // Set the hidden word
     //  HiddenWord = Isograms[rand() % Isograms.Num()];
     HiddenWord = Isograms[FMath::RandRange(0, Isograms.Num() - 1)];
-    Lives = HiddenWord.Len();
+    Lifes = HiddenWord.Len();
     bGameOver = false;
 
     PrintLine(TEXT("Guess the %i letter word!"), HiddenWord.Len());
-    PrintLine(TEXT("You have: %i lives."), Lives);
+    // PrintLine(TEXT("The Hidden Word is: %s."), *HiddenWord); // Debug Line
+    PrintLine(TEXT("You have: %i lifes."), Lifes);
     PrintLine(TEXT("Type in your guess. \nAnd press enter to continue...")); // Prompt Player for guess
-
-    PrintLine(TEXT("The Hidden Word is: %s."), *HiddenWord); // Debug Line
 }
 
 // Function for Eng Game
@@ -101,21 +100,21 @@ void UBullCowCartridge::ProcessGuess(const FString &Guess)
             PrintLine(TEXT("\n--> No repaeating letters."));            
         }
 
-        --Lives;
+        --Lifes;
 
         // Chec if the lifes == 0
-        if (Lives > 0)
+        if (Lifes > 0)
         {            
             if (Guess.Len() < HiddenWord.Len())     //If the lenght is less than
             {
-                LostLife(Lives);
+                LostLife(Lifes);
                 
                 FBullCowCount Score = GetBullsCowsOxs(Guess);
                 PrintLine(TEXT("You have: %i Bulls - %i Cows - %i Oxs"), Score.Bulls, Score.Cows, Score.Oxs);
             }                        
             else if (Guess.Len() > HiddenWord.Len())    //If the lenght is greater than
             {
-                LostLife(Lives);
+                LostLife(Lifes);
 
                 PrintLine(TEXT("Remember -> The word has %i letters"), HiddenWord.Len());
             }            
@@ -123,7 +122,7 @@ void UBullCowCartridge::ProcessGuess(const FString &Guess)
             {
                 if (Guess != HiddenWord)
                 {
-                    LostLife(Lives);
+                    LostLife(Lifes);
 
                     FBullCowCount Score = GetBullsCowsOxs(Guess);
                     PrintLine(TEXT("You have: %i Bulls - %i Cows - %i Oxs"), Score.Bulls, Score.Cows, Score.Oxs);
@@ -132,7 +131,7 @@ void UBullCowCartridge::ProcessGuess(const FString &Guess)
         }
         else
         {
-            PrintLine(TEXT("------------------------------------\nYou have no lives left! X.X"));
+            PrintLine(TEXT("------------------------------------\nYou have no Lifes left! X.X"));
             PrintLine(TEXT("The hidden word was: %s."), *HiddenWord);
             EndGame();
         }
@@ -157,10 +156,10 @@ bool UBullCowCartridge::IsIsogram(const FString &Isogram) const
 }
 
 // Function for Lost Life
-void UBullCowCartridge::LostLife(int32 Lives)
+void UBullCowCartridge::LostLife(int32 Lifes)
 {
     PrintLine(TEXT("\nLost a live!"));
-    PrintLine(TEXT("Try again! \nYou have -> %i lives remaining."), Lives);
+    PrintLine(TEXT("Try again! \nYou have -> %i Lifes remaining."), Lifes);
 }
 
 // Function valid words
